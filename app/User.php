@@ -6,8 +6,9 @@ use App\Interfaces\IEntity;
 use App\Models\Transaction;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements IEntity
+class User extends Authenticatable implements IEntity, JWTSubject
 {
     use Notifiable;
 
@@ -59,6 +60,26 @@ class User extends Authenticatable implements IEntity
         'security_code_hash'
     ];
 
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 
     public function setCardNumberAttribute($card_number)
     {
@@ -119,5 +140,6 @@ class User extends Authenticatable implements IEntity
     public function transactions() {
         return $this->hasMany(Transaction::class);
     }
+
 
 }
