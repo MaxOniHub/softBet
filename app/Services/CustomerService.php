@@ -14,7 +14,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class CustomerService extends AbstractEntityService
 {
     /**
-     * @var User $repository
+     * @var User $entity
      */
     protected $entity;
 
