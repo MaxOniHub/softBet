@@ -16,10 +16,9 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('card_number_hash');
-            $table->string('expiration_date_hash');
-            $table->string('security_code_hash');
-            $table->string('holder_name_hash');
+            $table->dateTime('date');
+            $table->float('amount');
+            $table->string('currency');
 
             $table->foreign('user_id')->references('id')->on('users');
 
