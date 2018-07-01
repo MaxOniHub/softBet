@@ -13,6 +13,7 @@ Route::group(['middleware' => ['api'], 'prefix' => 'v1', 'namespace' => '\BaseAp
         Route::post('transactions', 'TransactionsController@store');
         Route::get('transactions/{id}', 'TransactionsController@show');
         Route::get('transactions/{id}/user', 'TransactionsController@showUser');
+        Route::put('transactions/{id}', 'TransactionsController@update');
     });
 });
 

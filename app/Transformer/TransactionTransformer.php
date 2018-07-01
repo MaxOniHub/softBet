@@ -16,6 +16,7 @@ class TransactionTransformer extends TransformerAbstract
     {
         return [
             'id' => $transaction->id,
+            'customer_id' => $transaction->user_id,
             'date' => $transaction->date,
             'amount' =>
                 [

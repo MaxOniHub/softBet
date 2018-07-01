@@ -4,9 +4,13 @@ namespace App\Http\Controllers\BaseApi;
 
 use App\Http\Requests\CreateTransactionRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
+use App\Services\TransactionDataFetcherService;
 use App\Services\TransactionService;
+use App\Transformer\CustomerTransformer;
 use App\Transformer\TransactionTransformer;
 use EllipseSynergie\ApiResponse\Laravel\Response;
+use Illuminate\Container\Container;
 
 /**
  * Class TransactionsController
@@ -51,6 +55,22 @@ class TransactionsController extends Controller
 
     /**
      * @param $id
+     * @param CreateTransactionRequest $request
+     * @return mixed
+     */
+    public function update($id, CreateTransactionRequest $request)
+    {
+        if (!$this->TransactionService->findById($id)) return $this->Response->errorNotFound();
+
+        $this->TransactionService->load($request);
+
+        if ($isSaved = $this->TransactionService->update()) {
+            return $this->Response->withItem($this->TransactionService->getEntity(), new TransactionTransformer());
+        }
+    }
+
+    /**
+     * @param $id
      * @return mixed
      */
     public function show($id)
@@ -58,6 +78,19 @@ class TransactionsController extends Controller
         if (!$this->TransactionService->findById($id)) return $this->Response->errorNotFound();
 
         return $this->Response->withItem($this->TransactionService->getEntity(), new TransactionTransformer());
+    }
+
+
+    public function showUser($id)
+    {
+        /** @var Transaction $entity */
+        if (!$entity = $this->TransactionService->findById($id)) return $this->Response->errorNotFound();
+
+        /** @var TransactionDataFetcherService $TransactionDataFetcherService */
+        $TransactionDataFetcherService = Container::getInstance()->make(TransactionDataFetcherService::class);
+        $TransactionDataFetcherService->setRepository($entity);
+
+        return $this->Response->withCollection($TransactionDataFetcherService->getCustomer(), new CustomerTransformer());
     }
 
 }
