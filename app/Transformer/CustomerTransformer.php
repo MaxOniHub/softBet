@@ -16,7 +16,7 @@ class CustomerTransformer extends TransformerAbstract
     public function transform($customer)
     {
         return [
-            'id' => $customer->id,
+            'customerId' => $customer->id,
             'name' => $customer->name,
             'email' => $customer->email,
             /*'card_number' => Encryptor::decrypt($customer->card_number_hash)*/
