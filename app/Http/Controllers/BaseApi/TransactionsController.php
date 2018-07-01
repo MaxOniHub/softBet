@@ -6,11 +6,13 @@ use App\Http\Requests\CreateTransactionRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use App\Services\TransactionDataFetcherService;
+use App\Services\TransactionSearchFilter;
 use App\Services\TransactionService;
 use App\Transformer\CustomerTransformer;
 use App\Transformer\TransactionTransformer;
 use EllipseSynergie\ApiResponse\Laravel\Response;
 use Illuminate\Container\Container;
+use Illuminate\Http\Request;
 
 /**
  * Class TransactionsController

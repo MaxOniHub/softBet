@@ -15,6 +15,7 @@ Route::group(['middleware' => ['api'], 'prefix' => 'v1', 'namespace' => '\BaseAp
         Route::get('transactions/{id}/user', 'TransactionsController@showUser');
         Route::put('transactions/{id}', 'TransactionsController@update');
         Route::delete('transactions/{delete}', 'TransactionsController@delete');
+        Route::get('transactions', 'TransactionsController@index');
     });
 });
 
