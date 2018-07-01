@@ -41,4 +41,8 @@ class TransactionDataFetcherService extends AbstractDataFetcher
         return $this;
     }
 
+    public function fetch()
+    {
+        return $this->repository->active()->get();
+    }
 }
