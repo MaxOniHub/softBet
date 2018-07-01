@@ -41,10 +41,11 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
+    public function user()
     {
         return response()->json($this->guard()->user());
     }
+
 
     /**
      * Log the user out (Invalidate the token)
@@ -79,9 +80,10 @@ class AuthController extends Controller
     {
         return response()->json([
             'access_token' => $token,
+            'user' => $this->guard()->user(),
             'token_type' => 'bearer',
             'expires_in' => $this->guard()->factory()->getTTL() * 60
-        ]);
+        ])->header('Authorization', 'Bearer '.$token);
     }
 
     /**

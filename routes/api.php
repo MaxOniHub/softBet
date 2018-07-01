@@ -1,9 +1,13 @@
 <?php
 
-Route::group(['middleware' => ['api'], 'prefix' => 'v1', 'namespace' => '\BaseApi'], function () {
-    Route::post('auth/login', 'AuthController@login');
 
-    Route::group(['middleware' => 'jwt-auth'], function () {
+Route::group(['middleware' => ['api'], 'namespace' => '\BaseApi'], function () {
+
+    Route::post('auth/login', 'AuthController@login');
+    Route::post('auth/logout', 'AuthController@logout');
+    Route::get('auth/user', 'AuthController@user');
+
+    Route::group(['middleware' => 'jwt-auth', 'prefix' => 'v1'], function () {
 
         Route::post('customers', 'CustomersController@store');
         Route::get('customers/{id}', 'CustomersController@show');
