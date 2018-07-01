@@ -4,9 +4,14 @@ namespace App\Http\Controllers\BaseApi;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCustomerRequest;
+use App\Services\CustomerDataFetcherService;
 use App\Services\CustomerService;
 use App\Transformer\CustomerTransformer;
+use App\Transformer\TransactionTransformer;
+use App\User;
 use EllipseSynergie\ApiResponse\Laravel\Response;
+use Illuminate\Container\Container;
+use JWTAuth;
 
 /**
  * Class CustomersController
@@ -56,9 +61,34 @@ class CustomersController extends Controller
      */
     public function show($id)
     {
+
         if (!$this->CustomerService->findById($id)) return $this->Response->errorNotFound();
 
         return $this->Response->withItem($this->CustomerService->getEntity(), new CustomerTransformer());
+    }
+
+    public function transactions($id)
+    {
+        /** @var User $entity */
+        if (!$entity = $this->CustomerService->findById($id)) return $this->Response->errorNotFound();
+
+        /** @var CustomerDataFetcherService $CustomerDataFetcher */
+        $CustomerDataFetcher = Container::getInstance()->make(CustomerDataFetcherService::class);
+        $CustomerDataFetcher->setRepository($entity);
+
+        return $this->Response->withCollection($CustomerDataFetcher->getUsersTransactions(), new TransactionTransformer());
+    }
+
+    public function transaction($id, $transaction_id)
+    {
+        /** @var User $entity */
+        if (!$entity = $this->CustomerService->findById($id)) return $this->Response->errorNotFound();
+
+        /** @var CustomerDataFetcherService $CustomerDataFetcher */
+        $CustomerDataFetcher = Container::getInstance()->make(CustomerDataFetcherService::class);
+        $CustomerDataFetcher->setRepository($entity);
+
+        return $this->Response->withItem($CustomerDataFetcher->getUsersTransaction($transaction_id), new TransactionTransformer());
     }
 
 }

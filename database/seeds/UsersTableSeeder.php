@@ -13,9 +13,15 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => str_random(6),
-            'email' => strtolower(str_random(6)).'@test.com',
-            'password' => bcrypt('test@123')
+            'name' => "Andrea M Spalding",
+            'email' => "andrea@test.com",
+            'password' => \Illuminate\Support\Facades\Hash::make("secret"),
+            'company_name' => 'My Company',
+            'address_line1' => '1184  Oak Way',
+            'address_line2' => '',
+            'city' => 'FLEMINGTON',
+            'state' => 'NJ',
+            'postal_code' => '08822',
         ]);
     }
 }

@@ -38,6 +38,22 @@ class TransactionsController extends Controller
         $this->Response = $response;
     }
 
+
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function index(Request $request)
+    {
+        /** @var TransactionSearchFilter $TransactionSearchFilter */
+        $TransactionSearchFilter = Container::getInstance()->make(TransactionSearchFilter::class);
+
+        if ($res = $TransactionSearchFilter->search($request))
+
+        return $this->Response->withCollection($res, new TransactionTransformer());
+
+    }
+
     /**
      * @param CreateTransactionRequest $request
      * @return mixed
