@@ -11,6 +11,10 @@ use App\Models\Transaction;
  */
 class TransactionService extends AbstractEntityService
 {
+
+    /** @var Transaction **/
+    protected $entity;
+
     /**
      * TransactionService constructor.
      * @param Transaction $transaction
@@ -41,4 +45,9 @@ class TransactionService extends AbstractEntityService
         return $this->entity->save();
     }
 
+    public function delete()
+    {
+        $this->entity->setIsDeletedAttribute(true);
+        return $this->store();
+    }
 }

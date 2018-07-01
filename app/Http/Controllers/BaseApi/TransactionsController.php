@@ -93,4 +93,19 @@ class TransactionsController extends Controller
         return $this->Response->withCollection($TransactionDataFetcherService->getCustomer(), new CustomerTransformer());
     }
 
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|mixed
+     */
+    public function delete($id)
+    {
+        /** @var Transaction $entity */
+        if (!$entity = $this->TransactionService->findById($id)) return $this->Response->errorNotFound();
+
+        if (!$this->TransactionService->delete())
+            return $this->Response->withArray(['message' => 'success']);
+
+        return $this->Response->errorInternalError();
+    }
 }

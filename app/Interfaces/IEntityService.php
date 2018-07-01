@@ -13,4 +13,6 @@ interface IEntityService extends IRepository
     public function create();
 
     public function update();
+
+    public function delete();
 }

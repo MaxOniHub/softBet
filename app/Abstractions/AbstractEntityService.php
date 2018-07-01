@@ -47,4 +47,9 @@ abstract class AbstractEntityService implements IEntityService
 
         return $this->entity;
     }
+
+    public function delete()
+    {
+        return true;
+    }
 }
