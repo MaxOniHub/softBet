@@ -103,7 +103,7 @@ class TransactionsController extends Controller
         /** @var Transaction $entity */
         if (!$entity = $this->TransactionService->findById($id)) return $this->Response->errorNotFound();
 
-        if (!$this->TransactionService->delete())
+        if ($this->TransactionService->delete())
             return $this->Response->withArray(['message' => 'success']);
 
         return $this->Response->errorInternalError();
