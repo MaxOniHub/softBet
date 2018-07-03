@@ -69,3 +69,21 @@ password: secret
 # API reference
 
 https://documenter.getpostman.com/view/3026484/RWM6xCXv
+
+# Cron job usage
+
+How to run the `TransactionsSummary` console command
+
+**Ubuntu example:**
+```sh
+$ sudo crontab -e
+```
+```sh
+47 23 */2 * * php /var/www/html/artisan transactions:summary
+```
+
+**or use Laravel Task Scheduling:**
+
+```sh
+  $schedule->exec('{your command here}')->cron('47 23 */2 * *');
+```
