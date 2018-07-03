@@ -26,9 +26,9 @@ class CreateTransactionRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'date' => 'required',
-            'amount' => 'required',
-            'user_id' => 'required',
+            'date' => 'required|date',
+            'amount' => 'required|integer',
+            'user_id' => 'required|integer',
             'currency' => 'required',
         ];
     }
