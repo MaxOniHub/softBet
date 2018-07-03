@@ -23,6 +23,6 @@ class CustomerDataFetcherService
 
     public function getUsersTransaction($transaction_id)
     {
-        return $this->repository->transactions()->active()->where('id', $transaction_id)->get();
+        return $this->repository->transactions()->active()->where('id', $transaction_id)->first();
     }
 }
