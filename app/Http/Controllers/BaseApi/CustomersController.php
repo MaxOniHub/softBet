@@ -88,7 +88,10 @@ class CustomersController extends Controller
         $CustomerDataFetcher = Container::getInstance()->make(CustomerDataFetcherService::class);
         $CustomerDataFetcher->setRepository($entity);
 
-        return $this->Response->withItem($CustomerDataFetcher->getUsersTransaction($transaction_id), new TransactionTransformer());
+        if ($t = $CustomerDataFetcher->getUsersTransaction($transaction_id))
+            return $this->Response->withItem($CustomerDataFetcher->getUsersTransaction($transaction_id), new TransactionTransformer());
+
+        return $this->Response->errorNotFound();
     }
 
 }
