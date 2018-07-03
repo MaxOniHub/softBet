@@ -8,7 +8,7 @@
 ### After you clone this project, do the following:
 1. Go into the project   
 ```sh
-$ cd sofBet
+$ cd softBet
 ```
 
 2. Create a .env file
