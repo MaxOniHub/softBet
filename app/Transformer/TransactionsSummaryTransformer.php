@@ -17,7 +17,8 @@ class TransactionsSummaryTransformer extends TransformerAbstract
         return [
             'transactions' => $summary->transactions,
             'total' => $summary->total,
-            'date' => $summary->date
+            'date' => $summary->date,
+            'currency' => $summary->currency
         ];
     }
 }
