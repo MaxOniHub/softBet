@@ -10,9 +10,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 abstract class AbstractDataFetcher
 {
+    /** @var Model **/
     protected $repository;
 
-
+    /**
+     * AbstractDataFetcher constructor.
+     * @param Model $repository
+     */
     public function __construct(Model $repository)
     {
         $this->repository = $repository;
@@ -50,5 +54,10 @@ abstract class AbstractDataFetcher
     public function fetch()
     {
         return $this->repository->get();
+    }
+
+    public function fetchFirst()
+    {
+        return $this->repository->first();
     }
 }

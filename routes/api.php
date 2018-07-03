@@ -20,6 +20,8 @@ Route::group(['middleware' => ['api'], 'namespace' => '\BaseApi'], function () {
         Route::put('transactions/{id}', 'TransactionsController@update');
         Route::delete('transactions/{delete}', 'TransactionsController@delete');
         Route::get('transactions', 'TransactionsController@index');
+
+        Route::get('reports/transactions/summary', 'reportsController@getTransactionsSummary');
     });
 });
 
