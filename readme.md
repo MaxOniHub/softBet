@@ -65,3 +65,7 @@ and visit
 ### Use the following credentials to be able to login
 username: andrea@test.com
 password: secret
+
+# API reference
+
+https://documenter.getpostman.com/view/3026484/RWM6xCXv
