@@ -46,6 +46,8 @@ class HashService implements IHasher
      */
     public function makeHash($value)
     {
+        if (!$this->filterValue($value)) return false;
+
         if (!empty($options)) {
             return $this->hasher::make($value, $options);
         }
@@ -56,5 +58,10 @@ class HashService implements IHasher
     public function verifyHash($unhashed_value, $hashed_value)
     {
         return $this->hasher::check($unhashed_value, $hashed_value);
+    }
+
+    protected function filterValue($value)
+    {
+        return !is_string($value) ? false : true;
     }
 }
