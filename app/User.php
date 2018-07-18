@@ -81,6 +81,12 @@ class User extends Authenticatable implements IEntity, JWTSubject
         return [];
     }
 
+
+    public function findByName($name)
+    {
+        return $this->where('name', $name)->first();
+    }
+
     public function setCardNumberAttribute($card_number)
     {
         $this->card_number = $card_number;

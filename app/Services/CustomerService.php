@@ -19,19 +19,19 @@ class CustomerService extends AbstractEntityService
     protected $entity;
 
     /**
-     * @var EncryptionService
+     * @var SecurityService
      */
-    private $EncryptionService;
+    private $SecurityService;
 
     /**
      * TransactionService constructor.
      * @param User $user
-     * @param EncryptionService $encryptionService
+     * @param SecurityService $securityService
      */
-    public function __construct(User $user, EncryptionService $encryptionService)
+    public function __construct(User $user, SecurityService $securityService)
     {
         parent::__construct($user);
-        $this->EncryptionService = $encryptionService;
+        $this->SecurityService = $securityService;
     }
 
     /**
@@ -76,9 +76,9 @@ class CustomerService extends AbstractEntityService
 
     private function encryptSensitiveData()
     {
-        $encrypted_card_number = $this->EncryptionService->encrypt($this->entity->getCardNumberAttribute());
-        $encrypted_exp_date = $this->EncryptionService->encrypt($this->entity->getExpirationDateAttribute());
-        $encrypted_security_code = $this->EncryptionService->encrypt($this->entity->getSecurityCodeAttribute());
+        $encrypted_card_number = $this->SecurityService->encrypt($this->entity->getCardNumberAttribute());
+        $encrypted_exp_date = $this->SecurityService->encrypt($this->entity->getExpirationDateAttribute());
+        $encrypted_security_code = $this->SecurityService->encrypt($this->entity->getSecurityCodeAttribute());
 
         $this->entity->setCardNumberHashAttribute($encrypted_card_number);
         $this->entity->setExpirationDateHashAttribute($encrypted_exp_date);
@@ -87,6 +87,6 @@ class CustomerService extends AbstractEntityService
 
     private function generatePass()
     {
-        return $this->EncryptionService->useArgon2WorkFactor()->makeHash(str_random(16));
+        return $this->SecurityService->useArgon2WorkFactor()->makeHash(str_random(16));
     }
 }
